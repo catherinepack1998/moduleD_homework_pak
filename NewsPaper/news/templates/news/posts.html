@@ -1,0 +1,49 @@
+<!--  наследуемся от шаблона default.html -->
+{% extends 'layout/default.html' %}
+{% load custom_filters %}
+<!-- Название у нас будет proudcts -->
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+    <h1>Все новости</h1>
+    <h3> Общее количество новостей: {{ posts|length }} </h3>
+    <hr>
+    <h4>{{ time_now|date:'M d Y' }}</h4>
+    {% if posts %}
+<!-- Выводим продукты (блюда), только если они есть, с помощью тега if -->
+        <table class = "table">
+            <tr>
+                <th scope="col">
+                    Заголовок
+                </th>
+                <th scope="col">
+                    Дата публикации
+                </th>
+                <th scope="col">
+                    Текст
+                </th>
+
+            </tr>
+
+        {% for post in posts %} <!-- Для каждого товара будет генерироваться новая строчка, т. е. новый HTML-код. При этом сам цикл работает точно так же, как и в python. product -- переменная цикла, т. е. наш товар, взятый из общего списка -->
+
+            {{ person.anniversary.date|date:"M d, Y" }}
+            <tr>
+                <td>
+                    {{ post.title|censor }} <!-- Не забываем, что переменные в шаблоне ничем не отличаются от переменных в Python. Здесь также можно получать доступ к полям класса. Например, здесь мы выводим имя, в следующем столбце описание и т.д.  -->
+                </td>
+                <td>
+                    {{ post.createData|date:'d.m.Y' }}
+                </td>
+                <td>
+                    {{ post.articleText|truncatechars:50|censor }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}
