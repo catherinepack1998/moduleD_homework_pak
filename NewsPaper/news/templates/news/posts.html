@@ -12,7 +12,13 @@ Posts
     <hr>
     <h4>{{ time_now|date:'M d Y' }}</h4>
     {% if posts %}
-<!-- Выводим продукты (блюда), только если они есть, с помощью тега if -->
+
+    <form method="GET">
+        {{ filter.form }}
+        <!-- Форму от фильтров за нас сделает Django. А вот кнопку, увы, придётся делать самим -->
+        <input class="btn btn-primary" type="submit" value="Найти">
+    </form>
+
         <table class = "table">
             <tr>
                 <th scope="col">
@@ -43,6 +49,9 @@ Posts
             </tr>
         {% endfor %}
         </table>
+
+    {% include 'news/parts/paginator.html' %}
+
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
