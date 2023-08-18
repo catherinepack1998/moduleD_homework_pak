@@ -41,7 +41,6 @@ class Post(models.Model):
     rating = models.SmallIntegerField(default=0)
     description = models.TextField()
 
-
     def like(self):
         self.rating = self.rating + 1
         self.save()
@@ -52,6 +51,9 @@ class Post(models.Model):
 
     def preview(self):
         return self.articleText[:123] + '...'
+
+    def get_absolute_url(self):
+        return f'/posts/{self.id}'
 
 class PostCategory(models.Model):
     postTr = models.ForeignKey(Post, on_delete=models.CASCADE)
